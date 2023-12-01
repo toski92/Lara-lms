@@ -1,0 +1,3 @@
+<div>
+    Instructor Dashboard
+</div>
