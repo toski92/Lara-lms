@@ -31,7 +31,7 @@ class ProfileController extends Controller
         $data = User::find($id);//dd($data);
         $data->name = $request->name;
         $data->username = $request->username;
-        $data->email = $request->email;
+        // $data->email = $request->email;
         $data->photo = $request->photo;
         $data->phone = $request->phone;
         $data->address = $request->address;
@@ -45,7 +45,12 @@ class ProfileController extends Controller
 
         $data->save();
 
-        return redirect()->back();
+        $notification = [
+            'message' => 'Profile updated successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($notification);
     }
 
     /**
