@@ -115,6 +115,55 @@
                             </div>
                         </form>
                     </div>
+                    <div class="card">
+                        <form action="" method="post" action="{{ route('profile.password.update') }}">
+                            @method('PUT')
+                            @csrf
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Old Password</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="password" name="old_password" class="form-control @error('old_password')
+                                            is-invalid
+                                        @enderror" id="old_password"/>
+                                        @error('old_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">New Password</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="password" name="new_password" class="form-control @error('new_password')
+                                            is-invalid
+                                        @enderror" id="new_password"/>
+                                        @error('new_password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Confirm New Password</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="password" name="new_password_confirmation" class="form-control" id="confirm_password"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="submit" class="btn btn-primary px-4" value="Change Password" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
