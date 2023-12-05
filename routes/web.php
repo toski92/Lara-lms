@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', [UserController::class, 'index'])->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,6 +40,7 @@ Route::middleware(['auth','roles:admin'])->group(function () {
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::get('/instructor/dashboard', [InstructorController::class, 'instructor_dashboard'])->name('instructor.dashboard');
+    Route::get('/instructor/logout', [InstructorController::class, 'instructor_logout'])->name('instructor.logout');
 });
 
 require __DIR__.'/auth.php';
