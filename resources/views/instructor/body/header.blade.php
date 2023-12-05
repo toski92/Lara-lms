@@ -382,20 +382,7 @@
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>
-                    <li>
-                        @php
-                            function logout() {
-                                if (Auth::user()->role==='admin') {
-                                    return route('admin.logout');
-                                } else if (Auth::user()->role==='instructor') {
-                                    return route('instructor.logout');
-                                } else {
-                                    # code...
-                                }
-                            }
-
-                        @endphp
-                        <a class="dropdown-item d-flex align-items-center" href="{{ logout() }}"><i class="bx bx-log-out-circle"></i><span>Logout</span></a>
+                    <li><a class="dropdown-item d-flex align-items-center" href="{{ route('instructor.logout') }}"><i class="bx bx-log-out-circle"></i><span>Logout</span></a>
                     </li>
                 </ul>
             </div>
