@@ -18,6 +18,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        if (Auth::user()->role==='user') {
+            return view('frontend.dashboard.edit_profile', [
+                'user' => $request->user(),
+            ]);
+        }
         return view('profile.edit', [
             'user' => $request->user(),
         ]);

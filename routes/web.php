@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::get('/', [UserController::class, 'index'])->name('index');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('frontend.dashboard.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -35,12 +35,12 @@ Route::middleware('auth')->group(function () {
 // Admin group middleware
 Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard');
-    Route::get('/admin/logout', [AdminController::class, 'admin_logout'])->name('admin.logout');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::get('/instructor/dashboard', [InstructorController::class, 'instructor_dashboard'])->name('instructor.dashboard');
-    Route::get('/instructor/logout', [InstructorController::class, 'instructor_logout'])->name('instructor.logout');
 });
+
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
 require __DIR__.'/auth.php';
