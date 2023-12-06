@@ -73,6 +73,48 @@
                 </div><!-- end input-box -->
             </div>
         </form>
+        {{-- <div class="card"> --}}
+            <form action="" method="post" action="{{ route('profile.password.update') }}">
+                @method('PUT')
+                @csrf
+                <div class="row align-items-center">
+                    <div class="col-lg-6 input-box">
+                        <label class="label-text">Old Password</label>
+                        <div class="form-group">
+                            <input type="password" name="old_password" class="form-control form--control @error('old_password')
+                                is-invalid
+                            @enderror" id="old_password"/>
+                            @error('old_password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 input-box">
+                        <label class="label-text">New Password</label>
+                        <div class="form-group">
+                            <input type="password" name="new_password" class="form-control form--control @error('new_password')
+                                is-invalid
+                            @enderror" id="new_password"/>
+                            @error('new_password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 input-box">
+                        <label class="label-text">Confirm New Password</label>
+                        <div class="form-group">
+                            <input type="password" name="new_password_confirmation" class="form-control form--control" id="confirm_password"/>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 input-box mt-4">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary px-4" value="Change Password" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {{-- </div> --}}
     </div><!-- end setting-body -->
 </div><!-- end tab-pane -->
 @endsection
