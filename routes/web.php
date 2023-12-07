@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
 // Admin group middleware
 Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('all.category');
+    Route::get('/add-category', [CategoryController::class, 'create'])->name('add.category');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
