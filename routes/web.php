@@ -38,6 +38,7 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard');
     Route::get('/categories', [CategoryController::class, 'index'])->name('all.category');
     Route::get('/add-category', [CategoryController::class, 'create'])->name('add.category');
+    Route::post('/add-category', [CategoryController::class, 'store'])->name('store.category');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {

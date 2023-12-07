@@ -25,18 +25,18 @@
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Slug</th>
-                            <th>Category Name</th>
+                            <th>SI</th>
                             <th>Category Image</th>
+                            <th>Category Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($categories as $category)
                         <tr>
-                            <td>{{ $category->slug }}</td>
-                            <td>{{ $category->name }}</td>
-                            <td><img src="{{ $category->image }}" alt="{{ $category->name }}" style="width: 70px; height:30px"></td>
+                            <td>{{ $category->id }}</td>
+                            <td><img src="{{ asset($category->image) }}" alt="{{ $category->name }}" style="width: 70px; height:30px"></td>
+                            <td>{{ $category->category_name }}</td>
                             <td>
                                 <a href="" class="btn btn-info">Edit</a>
                                 <a href="" class="btn btn-danger">Delete</a>
