@@ -60,9 +60,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Category $category, string $id)
     {
-        //
+        $category_obj = $category::find($id);
+        return view('admin.backend.category.edit_category',['category'=>$category_obj]);
     }
 
     /**
@@ -70,14 +71,54 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category_id = $request->id;
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(370,246)->save("upload/category/$name_gen");
+            $save_url = "upload/category/$name_gen";//dd($save_url);
+            Category::find($category_id)->update([
+                'category_name'=>$request->category_name,
+                'category_slug'=>strtolower(str_replace(' ','-',$request->category_name)),
+                'image'=>$save_url
+            ]);
+
+            $notification = array(
+                'message' => 'Category Updated Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.category')->with($notification);
+        }else{
+            Category::find($category_id)->update([
+                'category_name'=>$request->category_name,
+                'category_slug'=>strtolower(str_replace(' ','-',$request->category_name))
+            ]);
+
+            $notification = array(
+                'message' => 'Category Updated Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.category')->with($notification);
+        }
+        // $category::update([
+        //     'category_name' => $request->category_name
+        // ])
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, string $id)
     {
-        //
+        $category_obj = $category::find($id);
+        unlink($category_obj->image);
+
+        $category::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Category deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

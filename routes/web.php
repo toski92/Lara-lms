@@ -39,6 +39,9 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('all.category');
     Route::get('/add-category', [CategoryController::class, 'create'])->name('add.category');
     Route::post('/add-category', [CategoryController::class, 'store'])->name('store.category');
+    Route::get('/edit-category/{id}', [CategoryController::class, 'edit'])->name('edit.category');
+    Route::post('/update-category', [CategoryController::class, 'update'])->name('update.category');
+    Route::get('/delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete.category');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
