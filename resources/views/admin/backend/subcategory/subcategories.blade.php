@@ -8,13 +8,13 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">All Category</li>
+                    <li class="breadcrumb-item active" aria-current="page">All SubCategory</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{ route('add.category') }}" class="btn btn-primary">Add Category</a>
+                <a href="{{ route('add.subcategory') }}" class="btn btn-primary">Add SubCategory</a>
             </div>
         </div>
     </div>
@@ -26,20 +26,21 @@
                     <thead>
                         <tr>
                             <th>SI</th>
-                            <th>Category Image</th>
                             <th>Category Name</th>
+                            <th>SubCategory Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $key => $category)
+                        @foreach ($subcategories as $key => $subcategory)
                         <tr>
                             <td>{{ $key+1 }}</td>
-                            <td><img src="{{ asset($category->image) }}" alt="{{ $category->name }}" style="width: 70px; height:30px"></td>
-                            <td>{{ $category->category_name }}</td>
                             <td>
-                                <a href="{{ route('edit.category',$category->id) }}" class="btn btn-info">Edit</a>
-                                <a href="{{ route('delete.category',$category->id) }}" id="delete" class="btn btn-danger">Delete</a>
+                                {{ $subcategory['category']['category_name'] }}</td>
+                            <td>{{ $subcategory->subcategory_name }}</td>
+                            <td>
+                                <a href="{{ route('edit.subcategory',$subcategory->id) }}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('delete.subcategory',$subcategory->id) }}" id="delete" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                         @endforeach

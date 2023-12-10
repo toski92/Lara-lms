@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -42,6 +43,14 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/edit-category/{id}', [CategoryController::class, 'edit'])->name('edit.category');
     Route::post('/update-category', [CategoryController::class, 'update'])->name('update.category');
     Route::get('/delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete.category');
+
+
+    Route::get('/subcategories', [SubCategoryController::class, 'index'])->name('all.subcategory');
+    Route::get('/add-subcategory', [SubCategoryController::class, 'create'])->name('add.subcategory');
+    Route::post('/add-subcategory', [SubCategoryController::class, 'store'])->name('store.subcategory');
+    Route::get('/edit-subcategory/{id}', [SubCategoryController::class, 'edit'])->name('edit.subcategory');
+    Route::post('/update-subcategory', [SubCategoryController::class, 'update'])->name('update.subcategory');
+    Route::get('/delete-subcategory/{id}', [SubCategoryController::class, 'destroy'])->name('delete.subcategory');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
