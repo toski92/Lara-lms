@@ -33,6 +33,21 @@
                 </li>
             </ul>
         </li>
+
+        <li class="menu-label">User Section</li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i>
+                </div>
+                <div class="menu-title">User Management</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('all.users') }}"><i class='bx bx-radio-circle'></i>All Users</a>
+                </li>
+                {{-- <li> <a href="{{ route('all.subcategory') }}"><i class='bx bx-radio-circle'></i>All SubCategory</a> --}}
+                {{-- </li> --}}
+            </ul>
+        </li>
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>

@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile', [ProfileController::class, 'update_password'])->name('profile.password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/register-teacher', [UserController::class, 'register_teacher'])->name('register.teacher');
 });
 // Admin group middleware
 Route::middleware(['auth','roles:admin'])->group(function () {
@@ -43,6 +44,11 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/edit-category/{id}', [CategoryController::class, 'edit'])->name('edit.category');
     Route::post('/update-category', [CategoryController::class, 'update'])->name('update.category');
     Route::get('/delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete.category');
+
+    Route::get('/users', [AdminController::class, 'user'])->name('all.users');
+    Route::get('/edit-user/{id}', [AdminController::class, 'edit'])->name('edit.user');
+    Route::post('/update-user', [AdminController::class, 'update'])->name('update.user');
+    Route::get('/delete-user/{id}', [AdminController::class, 'destroy'])->name('delete.user');
 
 
     Route::get('/subcategories', [SubCategoryController::class, 'index'])->name('all.subcategory');
