@@ -27,7 +27,7 @@
                     <ul class="generic-list-item">
                         <li><a href="#">About us</a></li>
                         <li><a href="#">Contact us</a></li>
-                        <li><a href="#">Become a Teacher</a></li>
+                        <li><a href="{{ route('register.teacher') }}">Become a Teacher</a></li>
                         <li><a href="#">Support</a></li>
                         <li><a href="#">FAQs</a></li>
                         <li><a href="#">Blog</a></li>
@@ -102,3 +102,25 @@
         </div><!-- end container -->
     </div><!-- end copyright-content -->
 </section><!-- end footer-area -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type','info') }}"
+    switch(type){
+        case 'info':
+        toastr.info(" {{ Session::get('message') }} ");
+        break;
+        case 'success':
+        toastr.success(" {{ Session::get('message') }} ");
+        break;
+        case 'warning':
+        toastr.warning(" {{ Session::get('message') }} ");
+        break;
+        case 'error':
+        toastr.error(" {{ Session::get('message') }} ");
+        break;
+    }
+    @endif
+</script>
