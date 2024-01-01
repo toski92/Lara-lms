@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
@@ -61,6 +62,13 @@ Route::middleware(['auth','roles:admin'])->group(function () {
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::get('/instructor/dashboard', [InstructorController::class, 'instructor_dashboard'])->name('instructor.dashboard');
+    Route::get('/courses', [CourseController::class, 'index'])->name('all.course');
+    Route::get('/add-course', [CourseController::class, 'create'])->name('add.course');
+    Route::post('/add-course', [CourseController::class, 'store'])->name('store.course');
+    Route::get('/edit-course/{id}', [CourseController::class, 'edit'])->name('edit.course');
+    Route::post('/update-course', [CourseController::class, 'update'])->name('update.course');
+    Route::get('/delete-course/{id}', [CourseController::class, 'destroy'])->name('delete.course');
+    Route::get('/subcategory/ajax/{category_id}',[CourseController::class, 'GetSubCategory']);
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
