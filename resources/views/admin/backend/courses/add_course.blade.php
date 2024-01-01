@@ -131,6 +131,22 @@
                 <textarea name="description" class="form-control" id="myeditorinstance"></textarea>
             </div>
 
+            <p>Course Metas </p>
+
+            <div class="row add_item">
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                            <label for="metas" class="form-label"> Metas </label>
+                            <input type="text" name="course_metas[]" id="metas" class="form-control" placeholder="metas ">
+                    </div>
+                </div>
+                <div class="form-group col-md-6" style="padding-top: 30px;">
+                    <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add More..</a>
+                </div>
+        </div> <!---end row-->
+
+
             <hr>
             <div class="row">
 
@@ -173,6 +189,46 @@
 
 
 </div>
+
+<!--========== Start of add multiple class with ajax ==============-->
+<div style="visibility: hidden">
+    <div class="whole_extra_item_add" id="whole_extra_item_add">
+       <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+          <div class="container mt-2">
+             <div class="row">
+
+
+                <div class="form-group col-md-6">
+                   <label for="metas">Metas</label>
+                   <input type="text" name="course_metas[]" id="metas" class="form-control" placeholder="Metas  ">
+                </div>
+                <div class="form-group col-md-6" style="padding-top: 20px">
+                   <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
+                   <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+
+ <!----For Section-------->
+ <script type="text/javascript">
+    $(document).ready(function(){
+       var counter = 0;
+       $(document).on("click",".addeventmore",function(){
+             var whole_extra_item_add = $("#whole_extra_item_add").html();
+             $(this).closest(".add_item").append(whole_extra_item_add);
+             counter++;
+       });
+       $(document).on("click",".removeeventmore",function(event){
+             $(this).closest("#whole_extra_item_delete").remove();
+             counter -= 1
+       });
+    });
+ </script>
+ <!--========== End of add multiple class with ajax ==============-->
 
 <script type="text/javascript">
     $(document).ready(function (){
