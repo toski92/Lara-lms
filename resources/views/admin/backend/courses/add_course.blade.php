@@ -22,7 +22,7 @@
         <div class="p-4 card-body">
             <h5 class="mb-4">Add Course</h5>
 
-            <form id="myForm" action="{{ route('store.category') }}" method="post" class="row g-3" enctype="multipart/form-data">
+            <form id="myForm" action="{{ route('store.course') }}" method="post" class="row g-3" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group col-md-6">
