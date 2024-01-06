@@ -118,11 +118,12 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course, Category $category, SubCategory $subCategory, string $id)
+    public function edit(Course $course, Category $category, SubCategory $subCategory, CourseMeta $courseMeta, string $id)
     {
         $categories = $category::all();
         $subcategories = $subCategory::all();
-        return view('admin.backend.courses.edit_course',['course'=>$course::find($id),'categories'=>$categories,'subcategories'=>$subcategories]);
+        $metas = $courseMeta::where('course_id',$id)->get();
+        return view('admin.backend.courses.edit_course',['course'=>$course::find($id),'categories'=>$categories,'subcategories'=>$subcategories,'metas'=>$metas]);
     }
 
     /**
@@ -133,35 +134,113 @@ class CourseController extends Controller
         $course_id = $request->course_id;
 
         $course::find($course_id)->update([
-        'category_id' => $request->category_id,
-        'subcategory_id' => $request->subcategory_id,
-        'instructor_id' => Auth::user()->id,
-        'course_title' => $request->course_title,
-        'course_name' => $request->course_name,
-        'slug' => strtolower(str_replace(' ', '-', $request->course_name)),
-        'description' => $request->description,
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id,
+            'instructor_id' => Auth::user()->id,
+            'course_title' => $request->course_title,
+            'course_name' => $request->course_name,
+            'slug' => strtolower(str_replace(' ', '-', $request->course_name)),
+            'description' => $request->description,
 
-        'level' => $request->level,
-        'duration' => $request->duration,
-        'resources' => $request->resources,
-        'certificate' => $request->certificate,
-        'selling_price' => $request->selling_price,
-        'discount_price' => $request->discount_price,
-        'excerpt' => $request->excerpt,
+            'level' => $request->level,
+            'duration' => $request->duration,
+            'resources' => $request->resources,
+            'certificate' => $request->certificate,
+            'selling_price' => $request->selling_price,
+            'discount_price' => $request->discount_price,
+            'excerpt' => $request->excerpt,
 
-        'bestseller' => $request->bestseller,
-        'featured' => $request->featured,
-        'highestrated' => $request->highestrated,
+            'bestseller' => $request->bestseller,
+            'featured' => $request->featured,
+            'highestrated' => $request->highestrated,
 
-    ]);
+        ]);
 
-    $notification = array(
-        'message' => 'Course Updated Successfully',
-        'alert-type' => 'success'
-    );
-    return redirect()->route('all.course')->with($notification);
+        $notification = array(
+            'message' => 'Course Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.course')->with($notification);
     }
 
+    public function UpdateFeatureImage(Request $request) {
+        $course_id = $request->id;
+        $oldImage = $request->old_img;
+
+        $image = $request->file('feature_image');
+        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(370,246)->save('upload/course/thumbnail/'.$name_gen);
+        $save_url = 'upload/course/thumbnail/'.$name_gen;
+
+        if (file_exists($oldImage)) {
+            unlink($oldImage);
+        }
+
+        Course::find($course_id)->update([
+            'feature_image' => $save_url,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $notification = array(
+            'message' => 'Course Image Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function UpdateCourseVideo(Request $request){
+
+        $course_id = $request->vid;
+        $oldVideo = $request->old_vid;
+
+        $video = $request->file('video');
+        $videoName = time().'.'.$video->getClientOriginalExtension();
+        $video->move(public_path('upload/course/video/'),$videoName);
+        $save_video = 'upload/course/video/'.$videoName;
+
+        if (file_exists($oldVideo)) {
+            unlink($oldVideo);
+        }
+
+        Course::find($course_id)->update([
+            'video' => $save_video,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $notification = array(
+            'message' => 'Course Video Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function UpdateCourseMeta(Request $request){
+
+        $cid = $request->id;//dd($cid);
+
+        if ($request->course_metas == NULL) {
+            return redirect()->back();
+        } else{
+
+            CourseMeta::where('course_id',$cid)->delete();
+
+            $metas = Count($request->course_metas);
+
+                for ($i=0; $i < $metas; $i++) {
+                    $gcount = new CourseMeta();
+                    $gcount->course_id = $cid;
+                    $gcount->meta_name = $request->course_metas[$i];
+                    $gcount->save();
+                }  // end for
+        } // end else
+
+        $notification = array(
+            'message' => 'Course Metas Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
     /**
      * Remove the specified resource from storage.
      */

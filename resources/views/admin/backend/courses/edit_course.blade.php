@@ -154,6 +154,135 @@
         </div>
     </div>
 
+    <div class="page-content">
+        <div class="card">
+            <div class="card-body">
+
+                <form action="{{ route('update.feature.image') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                <input type="hidden" name="id" value="{{ $course->id }}">
+                <input type="hidden" name="old_img" value="{{ $course->feature_image }}">
+
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="input2" class="form-label">Course Image </label>
+                        <input class="form-control" name="feature_image" type="file" id="image">
+                    </div>
+
+                    <div class="col-md-6">
+                        <img id="showImage" src="{{ asset($course->feature_image) }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100">
+                    </div>
+                </div>
+
+                <br><br>
+                <div class="col-md-12">
+                    <div class="d-md-flex d-grid align-items-center gap-3">
+          <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+
+                    </div>
+                </div>
+
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="page-content">
+        <div class="card">
+            <div class="card-body">
+
+                <form action="{{ route('update.course.video') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                <input type="hidden" name="vid" value="{{ $course->id }}">
+                <input type="hidden" name="old_vid" value="{{ $course->video }}">
+
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                   <label for="input2" class="form-label">Course Intro Video </label>
+                        <input type="file" name="video" class="form-control"  accept="video/mp4, video/webm" >
+                    </div>
+
+                    <div class="col-md-6">
+                        <video width="300" height="130" controls>
+                            <source src="{{ asset( $course->video ) }}" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+                <br><br>
+                <div class="col-md-12">
+                    <div class="d-md-flex d-grid align-items-center gap-3">
+          <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+
+                    </div>
+                </div>
+
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="page-content">
+        <div class="card">
+            <div class="card-body">
+
+                <form action="{{ route('update.course.meta') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $course->id }}">
+
+
+                    <!--   //////////// Meta Option /////////////// -->
+                    @foreach ($metas as $item)
+                    <div class="row add_item">
+                        <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+                            <div class="container mt-2">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="metas" class="form-label"> Metas </label>
+                                            <input type="text" name="course_metas[]" id="metas" class="form-control" value="{{ $item->meta_name }}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6" style="padding-top: 30px;">
+                                        <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add More..</a>
+
+                                        <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!---end row-->
+
+                    @endforeach
+
+                    <!--   //////////// End meta Option /////////////// -->
+
+
+                        <br><br>
+                        <div class="col-md-12">
+                            <div class="d-md-flex d-grid align-items-center gap-3">
+                    <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+
+                            </div>
+                        </div>
+
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+
 
 </div>
 
@@ -167,8 +296,8 @@
 
 
                 <div class="form-group col-md-6">
-                   <label for="goals">Goals</label>
-                   <input type="text" name="course_goals[]" id="goals" class="form-control" placeholder="Goals  ">
+                   <label for="metas">metas</label>
+                   <input type="text" name="course_metas[]" id="metas" class="form-control" placeholder="metas  ">
                 </div>
                 <div class="form-group col-md-6" style="padding-top: 20px">
                    <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
