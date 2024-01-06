@@ -118,9 +118,11 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit(Course $course, Category $category, SubCategory $subCategory, string $id)
     {
-        //
+        $categories = $category::all();
+        $subcategories = $subCategory::all();
+        return view('admin.backend.courses.edit_course',['course'=>$course::find($id),'categories'=>$categories,'subcategories'=>$subcategories]);
     }
 
     /**
@@ -128,7 +130,36 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $course_id = $request->course_id;
+
+        $course::find($course_id)->update([
+        'category_id' => $request->category_id,
+        'subcategory_id' => $request->subcategory_id,
+        'instructor_id' => Auth::user()->id,
+        'course_title' => $request->course_title,
+        'course_name' => $request->course_name,
+        'slug' => strtolower(str_replace(' ', '-', $request->course_name)),
+        'description' => $request->description,
+
+        'level' => $request->level,
+        'duration' => $request->duration,
+        'resources' => $request->resources,
+        'certificate' => $request->certificate,
+        'selling_price' => $request->selling_price,
+        'discount_price' => $request->discount_price,
+        'excerpt' => $request->excerpt,
+
+        'bestseller' => $request->bestseller,
+        'featured' => $request->featured,
+        'highestrated' => $request->highestrated,
+
+    ]);
+
+    $notification = array(
+        'message' => 'Course Updated Successfully',
+        'alert-type' => 'success'
+    );
+    return redirect()->route('all.course')->with($notification);
     }
 
     /**

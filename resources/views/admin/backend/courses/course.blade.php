@@ -43,12 +43,12 @@
                             <td>{{ $key+1 }}</td>
                             <td> <img src="{{ asset($course->feature_image) }}" alt="" style="width: 70px; height:40px;"> </td>
                             <td>{{ $course->course_name }}</td>
-                            <td>{{ $course->category_id }}</td>
+                            <td>{{ $course['category']['category_name'] }}</td>
                             <td>{{ $course->selling_price }}</td>
                             <td>{{ $course->discount_price }}</td>
                             <td>
-       <a href="{{ route('edit.category',$course->id) }}" class="px-5 btn btn-info">Edit </a>
-       <a href="{{ route('delete.category',$course->id) }}" class="px-5 btn btn-danger" id="delete">Delete </a>
+       <a href="{{ route('edit.course',$course->id) }}" class="px-5 btn btn-info">Edit </a>
+       <a href="{{ route('delete.course',$course->id) }}" class="px-5 btn btn-danger" id="delete">Delete </a>
                             </td>
                         </tr>
                         @endforeach
