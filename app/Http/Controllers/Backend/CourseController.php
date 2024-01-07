@@ -244,8 +244,24 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy(Course $course, CourseMeta $courseMeta, string $id)
     {
-        //
+        $get_course = $course::find($id);
+        unlink($get_course->feature_image);
+        unlink($get_course->video);
+
+        $course::find($id)->delete();
+
+        $metaData = $courseMeta::where('course_id',$id)->get();
+        foreach ($metaData as $item) {
+            $item->meta_name;
+            $courseMeta::where('course_id',$id)->delete();
+        }
+
+        $notification = array(
+            'message' => 'Course Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }
