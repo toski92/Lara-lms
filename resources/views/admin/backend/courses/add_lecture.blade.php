@@ -80,8 +80,8 @@
                                 </div>
 
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-primary edit-lecture-btn" data-bs-toggle="modal" data-bs-target="#editLectureModal" data-lecture-id="{{ $lecture->id }}">Edit</button> &nbsp;
-                                    <a href="" class="btn btn-sm btn-danger">Delete</a>
+                                    <button type="button" class="btn btn-primary edit-lecture-btn" data-bs-toggle="modal" data-bs-target="#editLectureModal" data-lecture-id="{{ $lecture->id }}">Edit Lecture</button> &nbsp;
+                                    <a href="" class="btn btn-sm btn-danger">Delete Lecture</a>
                                 </div>
                             </div>
                             @endforeach
