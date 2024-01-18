@@ -76,6 +76,8 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::get('/add-lecture/{id}',[CourseController::class, 'add_lecture'])->name('add.lecture');
     Route::post('/add-topic',[CourseController::class, 'add_topic'])->name('add.topic');
     Route::post('/save-lecture',[CourseController::class, 'save_lecture'])->name('save.lecture');
+    Route::get('/get-lecture/{id}',[CourseController::class, 'get_lecture']);
+    Route::post('/update-lecture',[CourseController::class, 'update_lecture'])->name('update.lecture');
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');

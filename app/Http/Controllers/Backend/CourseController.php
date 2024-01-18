@@ -306,4 +306,24 @@ class CourseController extends Controller
         return response()->json(['success' => 'Lecture Saved Successfully']);
 
     }
+
+    public function get_lecture($id) {
+        $lecture = Lecture::find($id);
+
+        return response()->json($lecture);
+    }
+
+    public function update_lecture(Request $request) {
+        $lectureId = $request->lecture_id;
+        Lecture::find($lectureId)->update([
+            'lecture_title' => $request->lecture_title,
+            'url' => $request->url,
+            'content' => $request->content,
+        ]);
+        $notification = array(
+            'message' => 'Lecture Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

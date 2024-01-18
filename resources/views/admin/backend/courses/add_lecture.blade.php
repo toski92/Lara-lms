@@ -80,11 +80,58 @@
                                 </div>
 
                                 <div class="btn-group">
-                                    <a href="" class="btn btn-sm btn-primary">Edit</a> &nbsp;
+                                    <button type="button" class="btn btn-primary edit-lecture-btn" data-bs-toggle="modal" data-bs-target="#editLectureModal" data-lecture-id="{{ $lecture->id }}">Edit</button> &nbsp;
                                     <a href="" class="btn btn-sm btn-danger">Delete</a>
                                 </div>
                             </div>
                             @endforeach
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="editLectureModal" tabindex="-1" aria-labelledby="editLectureModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editLectureModalLabel">Edit Lecture </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                <form action="{{ route('update.lecture') }}" method="POST">
+                                    @csrf
+
+                                    <input type="hidden" name="id" value="{{ $course->id }}">
+                                    <input type="hidden" name="lecture_id" id="lecture_id" value="">
+
+                                    <div class="mb-3 form-group">
+                                        <label for="lecture_title" class="form-label">Lecture</label>
+                                        <input type="text" name="lecture_title" class="form-control" id="lecture_title" value=""  >
+                                    </div>
+
+                                    <div class="mb-3 form-group">
+                                        <label for="video" class="form-label">Video</label>
+                                        <input name="video" class="form-control" id="video" value=""  >
+                                    </div>
+
+                                    <div class="mb-3 form-group">
+                                        <label for="url" class="form-label">Url</label>
+                                        <input name="url" class="form-control" id="url" value=""  >
+                                    </div>
+
+                                    <div class="mb-3 form-group">
+                                        <label for="content" class="form-label">Content</label>
+                                        <input name="content" class="form-control" id="content" value=""  >
+                                    </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                                    </div>
+                                </form>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,16 +142,16 @@
 
     <script>
         function addLectureDiv(courseId, topicId, containerId) {
-            const lectureContainer = document.getElementById(containerId);
+            const lectureContainer = document.getElementById(containerId);//console.log(lectureContainer)
             const newLectureDiv = document.createElement('div');
             newLectureDiv.classList.add('lectureDiv','mb-3');
             newLectureDiv.innerHTML = `
             <div class="container">
                 <h6>Lecture Title </h6>
-                <input type="text" class="form-control" placeholder="Enter Lecture Title">
+                <input type="text" name="title" class="form-control" placeholder="Enter Lecture Title">
                 <textarea class="mt-2 form-control" placeholder="Enter Lecture Content"  ></textarea>
                 <h6 class="mt-3">Add Video Url</h6>
-                <input type="text" name="url" class="form-control" placeholder="Add URL">
+                <input type="text" name="lect_url" class="form-control" placeholder="Add URL">
                 <button class="mt-3 btn btn-primary" onclick="saveLecture('${courseId}',${topicId},'${containerId}')" >Save Lecture</button>
                 <button class="mt-3 btn btn-secondary" onclick="hideLectureContainer('${containerId}')">Cancel</button>
             </div>
@@ -121,10 +168,10 @@
 
     <script>
         function saveLecture(courseId, topicId, containerId){
-            const lectureContainer = document.getElementById(containerId);
-            const lectureTitle = lectureContainer.querySelector('input[type="text"]').value;
-            const lectureContent = lectureContainer.querySelector('textarea').value;
-            const lectureUrl = lectureContainer.querySelector('input[name="url"]').value;
+            const lectureContainer = document.getElementById(containerId);//console.log(lectureContainer)
+            const lectureTitle = lectureContainer.querySelector('input[name="title"]').value;//console.log(lectureTitle)
+            const lectureContent = lectureContainer.querySelector('textarea').value;//console.log(lectureContent)
+            const lectureUrl = lectureContainer.querySelector('input[name="lect_url"]').value;//console.log(lectureUrl)
             fetch('/save-lecture', {
                 method: 'POST',
                 headers: {
@@ -173,5 +220,50 @@
                 console.error(error);
             });
         }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.edit-lecture-btn').on('click', function () {
+                // Get the lecture ID from data attribute
+                var lectureId = $(this).data('lecture-id');console.log(lectureId)
+
+                // Fetch lecture data using AJAX
+                // $.ajax({
+                //     url: '/get-lecture/' + lectureId,
+                //     type: 'GET',
+                //     success: function (lecture) {
+                //         console.log('Success:', lecture);
+                //         // Populate the modal with lecture data
+                //         $('#lecture_title').val(lecture.lecture_title);
+                //         $('#video').val(lecture.video);
+                //         $('#url').val(lecture.url);
+                //         $('#content').val(lecture.content);
+
+                //         // Show the modal
+                //         $('#editLectureModal').modal('show');
+                //     },
+                //     error: function (error) {
+                //         console.error(error);
+                //     }
+                // });
+
+
+                fetch(`/get-lecture/${lectureId}`)
+                    .then(response => response.json())
+                    .then(lecture => {
+                        // Populate the form fields with lecture data
+                        $('#lecture_id').val(lecture.id);
+                        $('#lecture_title').val(lecture.lecture_title);
+                        $('#video').val(lecture.video);
+                        $('#url').val(lecture.url);
+                        $('#content').val(lecture.content);
+
+                        // Show the modal
+                        $('#editLectureModal').modal('show');
+                    })
+                    .catch(error => console.error(error));
+            });
+        });
     </script>
 @endsection
