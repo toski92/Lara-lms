@@ -72,6 +72,10 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::post('/update-meta', [CourseController::class, 'UpdateCourseMeta'])->name('update.course.meta');
     Route::get('/delete-course/{id}', [CourseController::class, 'destroy'])->name('delete.course');
     Route::get('/subcategory/ajax/{category_id}',[CourseController::class, 'GetSubCategory']);
+
+    Route::get('/add-lecture/{id}',[CourseController::class, 'add_lecture'])->name('add.lecture');
+    Route::post('/add-topic',[CourseController::class, 'add_topic'])->name('add.topic');
+    Route::post('/save-lecture',[CourseController::class, 'save_lecture'])->name('save.lecture');
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');

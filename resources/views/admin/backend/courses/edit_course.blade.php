@@ -4,10 +4,10 @@
 
 <div class="page-content">
     <!--breadcrumb-->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="mb-3 page-breadcrumb d-none d-sm-flex align-items-center">
         <div class="ps-3">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0 p-0">
+                <ol class="p-0 mb-0 breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Course</li>
@@ -19,7 +19,7 @@
     <!--end breadcrumb-->
 
     <div class="card">
-        <div class="card-body p-4">
+        <div class="p-4 card-body">
             <h5 class="mb-4">Edit Course</h5>
 
             <form id="myForm" action="{{ route('update.course') }}" method="post" class="row g-3" enctype="multipart/form-data">
@@ -40,7 +40,7 @@
 
             <div class="form-group col-md-6">
                 <label for="input1" class="form-label">Course Category </label>
-                <select name="category_id" class="form-select mb-3" aria-label="Default select example">
+                <select name="category_id" class="mb-3 form-select" aria-label="Default select example">
                     <option selected="" disabled>Open this select menu</option>
                     @foreach ($categories as $cat)
                     <option value="{{ $cat->id }}" {{ $cat->id == $course->category_id ? 'selected' : '' }} >{{ $cat->category_name }}</option>
@@ -52,7 +52,7 @@
 
             <div class="form-group col-md-6">
                 <label for="input1" class="form-label">Course Subcategory </label>
-                <select name="subcategory_id" class="form-select mb-3" aria-label="Default select example">
+                <select name="subcategory_id" class="mb-3 form-select" aria-label="Default select example">
                     <option selected="" disabled>Open this select menu</option>
                     @foreach ($subcategories as $subcat)
                     <option value="{{ $subcat->id }}" {{ $subcat->id == $course->subcategory_id ? 'selected' : '' }}>{{ $subcat->subcategory_name }}</option>
@@ -64,7 +64,7 @@
 
             <div class="form-group col-md-6">
                 <label for="input1" class="form-label">Certificate Available </label>
-                <select name="certificate" class="form-select mb-3" aria-label="Default select example">
+                <select name="certificate" class="mb-3 form-select" aria-label="Default select example">
                <option selected="" disabled>Open this select menu</option>
                     <option value="Yes" {{ $course->certificate == 'Yes' ? 'selected' : '' }}>Yes</option>
                     <option value="No" {{ $course->certificate == 'No' ? 'selected' : '' }}>No</option>
@@ -73,7 +73,7 @@
 
             <div class="form-group col-md-6">
                 <label for="input1" class="form-label">Course Level </label>
-                <select name="label" class="form-select mb-3" aria-label="Default select example">
+                <select name="label" class="mb-3 form-select" aria-label="Default select example">
                <option selected="" disabled>Open this select menu</option>
                     <option value="Begineer" {{ $course->level == 'Begineer' ? 'selected' : '' }}>Begineer</option>
                     <option value="Intermediate" {{ $course->level == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
@@ -145,8 +145,8 @@
 
 
                 <div class="col-md-12">
-                    <div class="d-md-flex d-grid align-items-center gap-3">
-          <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                    <div class="gap-3 d-md-flex d-grid align-items-center">
+          <button type="submit" class="px-4 btn btn-primary">Save Changes</button>
 
                     </div>
                 </div>
@@ -171,14 +171,14 @@
                     </div>
 
                     <div class="col-md-6">
-                        <img id="showImage" src="{{ asset($course->feature_image) }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="100">
+                        <img id="showImage" src="{{ asset($course->feature_image) }}" alt="Admin" class="p-1 rounded-circle bg-primary" width="100">
                     </div>
                 </div>
 
                 <br><br>
                 <div class="col-md-12">
-                    <div class="d-md-flex d-grid align-items-center gap-3">
-          <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                    <div class="gap-3 d-md-flex d-grid align-items-center">
+          <button type="submit" class="px-4 btn btn-primary">Save Changes</button>
 
                     </div>
                 </div>
@@ -216,8 +216,8 @@
 
                 <br><br>
                 <div class="col-md-12">
-                    <div class="d-md-flex d-grid align-items-center gap-3">
-          <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                    <div class="gap-3 d-md-flex d-grid align-items-center">
+          <button type="submit" class="px-4 btn btn-primary">Save Changes</button>
 
                     </div>
                 </div>
@@ -269,8 +269,8 @@
 
                         <br><br>
                         <div class="col-md-12">
-                            <div class="d-md-flex d-grid align-items-center gap-3">
-                    <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                            <div class="gap-3 d-md-flex d-grid align-items-center">
+                    <button type="submit" class="px-4 btn btn-primary">Save Changes</button>
 
                             </div>
                         </div>

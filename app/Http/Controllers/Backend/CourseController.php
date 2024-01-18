@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use App\Models\CourseMeta;
+use App\Models\Lecture;
+use App\Models\Topic;
 use Carbon\Carbon;
 
 class CourseController extends Controller
@@ -263,5 +265,45 @@ class CourseController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    public function add_lecture(string $id){
+
+        $course = Course::find($id);
+        $topics = Topic::where('course_id',$id)->get();
+
+        return view('admin.backend.courses.add_lecture',['course'=>$course,'topics'=>$topics]);
+
+    }
+
+    public function add_topic(Request $request){
+
+        $cid = $request->id;
+
+        Topic::insert([
+            'course_id' => $cid,
+            'topic_title' => $request->topic_title,
+            'topic_summary' => $request->topic_summary,
+        ]);
+
+        $notification = array(
+            'message' => 'Topic Added Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function save_lecture(Request $request, Lecture $lecture) {
+        // $lecture = new Lecture();
+        $lecture->course_id = $request->course_id;
+        $lecture->topic_id = $request->topic_id;
+        $lecture->lecture_title = $request->lecture_title;
+        $lecture->url = $request->lecture_url;
+        $lecture->content = $request->content;
+        $lecture->save();
+
+        return response()->json(['success' => 'Lecture Saved Successfully']);
+
     }
 }
