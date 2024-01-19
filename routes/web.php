@@ -79,6 +79,7 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::get('/get-lecture/{id}',[CourseController::class, 'get_lecture']);
     Route::post('/update-lecture',[CourseController::class, 'update_lecture'])->name('update.lecture');
     Route::get('/delete-lecture/{id}',[CourseController::class, 'delete_lecture'])->name('delete.lecture');
+    Route::post('/delete-topic/{id}',[CourseController::class, 'delete_topic'])->name('delete.topic');
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');

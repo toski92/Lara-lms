@@ -66,7 +66,10 @@
                             <p>{{ $topic->topic_summary }} </p>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <button type="submit" class="px-2 btn btn-danger ms-auto"> Delete Topic</button> &nbsp;
+                            <form action="{{ route('delete.topic',$topic->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="px-2 btn btn-danger ms-auto"> Delete Topic</button> &nbsp;
+                            </form>
                             <a class="btn btn-primary" onclick="addLectureDiv({{ $course->id }}, {{ $topic->id }}, 'lectureContainer{{ $key }}' )" id="addLectureBtn($key)"> Add Lecture </a>
                         </div>
                     </div>

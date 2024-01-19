@@ -335,4 +335,18 @@ class CourseController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+    public function delete_topic($id) {
+        $section = Topic::find($id);
+
+        /// Delete reated lectures
+        $section->lectures()->delete();
+        // Delete the section
+        $section->delete();
+
+        $notification = array(
+            'message' => 'Topic Delete Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }
