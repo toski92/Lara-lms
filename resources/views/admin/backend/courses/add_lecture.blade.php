@@ -81,7 +81,7 @@
 
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary edit-lecture-btn" data-bs-toggle="modal" data-bs-target="#editLectureModal" data-lecture-id="{{ $lecture->id }}">Edit Lecture</button> &nbsp;
-                                    <a href="" class="btn btn-sm btn-danger">Delete Lecture</a>
+                                    <a href="{{ route('delete.lecture',$lecture->id) }}" class="btn btn-sm btn-danger" id="delete">Delete Lecture</a>
                                 </div>
                             </div>
                             @endforeach
