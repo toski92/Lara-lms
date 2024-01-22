@@ -67,7 +67,7 @@ class CourseController extends Controller
             'instructor_id' => Auth::user()->id,
             'course_title' => $request->course_title,
             'course_name' => $request->course_name,
-            'slug' => strtolower(str_replace(' ', '-', $request->course_name)),
+            'slug' => strtolower(str_replace([' ', '/'], '-', $request->course_name)),
             'description' => $request->description,
             'video' => $save_video,
 
@@ -141,7 +141,7 @@ class CourseController extends Controller
             'instructor_id' => Auth::user()->id,
             'course_title' => $request->course_title,
             'course_name' => $request->course_name,
-            'slug' => strtolower(str_replace(' ', '-', $request->course_name)),
+            'slug' => strtolower(str_replace([' ', '/'], '-', $request->course_name)),
             'description' => $request->description,
 
             'level' => $request->level,
