@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -83,5 +84,6 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+Route::get('/courses/{id}/{slug}', [IndexController::class, 'index']);
 
 require __DIR__.'/auth.php';
