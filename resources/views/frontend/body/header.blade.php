@@ -274,7 +274,7 @@
         </div><!-- end off-canvas-menu-close -->
         <ul class="generic-list-item off-canvas-menu-list pt-90px">
             <li>
-                <a href="#">Home</a>
+                <a href="{{ route('index') }}">Home</a>
                 <ul class="sub-menu">
                     <li><a href="index.html">Home One</a></li>
                     <li><a href="home-2.html">Home Two</a></li>
