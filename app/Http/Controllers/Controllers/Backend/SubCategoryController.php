@@ -35,7 +35,7 @@ class SubCategoryController extends Controller
         SubCategory::insert([
             'category_id'=>$request->category_id,
             'subcategory_name'=>$request->subcategory_name,
-            'subcategory_slug'=>strtolower(str_replace(' ','-',$request->subcategory_name))
+            'subcategory_slug'=>strtolower(str_replace([' ', '/'],'-',$request->subcategory_name))
         ]);
 
         $notification = array(
@@ -73,7 +73,7 @@ class SubCategoryController extends Controller
         $subCategory::find($subcategory_id)->update([
             'category_id'=>$request->category_id,
             'subcategory_name'=>$request->subcategory_name,
-            'subcategory_slug'=>strtolower(str_replace(' ','-',$request->subcategory_name))
+            'subcategory_slug'=>strtolower(str_replace([' ', '/'],'-',$request->subcategory_name))
         ]);
 
         $notification = array(
