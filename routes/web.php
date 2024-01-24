@@ -86,5 +86,6 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 Route::get('/courses/{id}/{slug}', [IndexController::class, 'index']);
 Route::get('/category/{id}/{slug}', [IndexController::class, 'category']);
+Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'subcategory']);
 
 require __DIR__.'/auth.php';
