@@ -57,7 +57,7 @@
                                 <div class="card-body">
                                     <h6 class="mb-3 ribbon ribbon-blue-bg fs-14">{{ $course->level }}</h6>
                                     <h5 class="card-title"><a href="{{ url('courses/'.$course->id.'/'.$course->slug) }}">{{ $course->course_name }}</a></h5>
-                                    <p class="card-text"><a href="teacher-detail.html">{{ $course['user']['name'] }}</a></p>
+                                    <p class="card-text"><a href="{{ route('instructor.details',$course->instructor_id) }}">{{ $course['user']['name'] }}</a></p>
                                     <div class="py-2 rating-wrap d-flex align-items-center">
                                         <div class="review-stars">
                                             <span class="rating-number">4.4</span>

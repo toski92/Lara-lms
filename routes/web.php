@@ -87,5 +87,6 @@ Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 Route::get('/courses/{id}/{slug}', [IndexController::class, 'index']);
 Route::get('/category/{id}/{slug}', [IndexController::class, 'category']);
 Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'subcategory']);
+Route::get('/instructor/{id}', [IndexController::class, 'instructor'])->name('instructor.details');
 
 require __DIR__.'/auth.php';
