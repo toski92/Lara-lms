@@ -5,10 +5,14 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+// use App\Models\User;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+// use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update_password'])->name('profile.password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/register-teacher', [UserController::class, 'register_teacher'])->name('register.teacher');
+    Route::get('/wishlist', [WishListController::class, 'index'])->name('user.wishlist');
+    Route::get('/get-wishlist-course',[WishListController::class, 'show']);
+    Route::get('/wishlist-remove/{id}',[WishListController::class, 'destroy']);
 });
 // Admin group middleware
 Route::middleware(['auth','roles:admin'])->group(function () {
@@ -88,5 +95,58 @@ Route::get('/courses/{id}/{slug}', [IndexController::class, 'index']);
 Route::get('/category/{id}/{slug}', [IndexController::class, 'category']);
 Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'subcategory']);
 Route::get('/instructor/{id}', [IndexController::class, 'instructor'])->name('instructor.details');
+Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'store']);
+
+// Route::get('/auth/google', function () {
+//     return Socialite::driver('google')->redirect();
+// });
+
+// Route::get('/auth/google/callback', function () {
+//     try {
+
+//         $user = Socialite::driver('google')->user();
+
+//         $finduser = User::where('google_id', $user->id)->first();
+
+//         if($finduser)
+
+//         {
+
+//             Auth::login($finduser);
+
+//             return redirect()->intended('dashboard');
+
+//         }
+
+//         else
+
+//         {
+//             $newUser = User::create([
+//                 'name' => $user->name,
+//                 'email' => $user->email,
+//                 'google_id'=> $user->id,
+//                 'password' => encrypt('123456dummy')
+//             ]);
+
+//             Auth::login($newUser);
+
+//             // $url = '';
+//             // if ($request->user()->role==='admin') {
+//             //     $url = route('admin.dashboard');
+//             // }elseif ($request->user()->role==='instructor') {
+//             //     $url= route('instructor.dashboard');
+//             // }elseif ($request->user()->role==='user') {
+//             //     $url= route('dashboard');
+//             // }
+
+//             // return redirect()->intended($url);
+
+//             return redirect()->intended('dashboard');
+//         }
+
+//     } catch (Exception $e) {
+//         dd($e->getMessage());
+//     }
+// });
 
 require __DIR__.'/auth.php';

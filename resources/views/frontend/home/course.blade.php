@@ -75,7 +75,15 @@
                                         @else
                                         <p class="text-black card-price font-weight-bold">${{ $course->discount_price }} <span class="before-price font-weight-medium">${{ $course->selling_price }}</span></p>
                                         @endif
-                                        <div class="shadow-sm cursor-pointer icon-element icon-element-sm" title="Add to Wishlist"><i class="la la-heart-o"></i></div>
+                                        @php
+                                            $has_wishlist = App\Models\Wishlist::where('user_id',Auth::id())->where('course_id',$course->id)->first();
+                                        @endphp
+                                        <div class="shadow-sm cursor-pointer icon-element icon-element-sm" title="Add to Wishlist" id="{{ $course->id }}" onclick="addToWishList(this.id)" style="@if(!empty($has_wishlist))
+                                            background: red;
+                                        @else
+                                            background: inherit;
+                                        @endif
+                                    "><i class="la la-heart-o"></i></div>
                                     </div>
                                 </div><!-- end card-body -->
                             </div><!-- end card -->
@@ -177,7 +185,7 @@
                 </ul>
                 <div class="d-flex justify-content-between align-items-center">
                     <a href="#" class="btn theme-btn flex-grow-1 mr-3"><i class="la la-shopping-cart mr-1 fs-18"></i> Add to Cart</a>
-                    <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist"><i class="la la-heart-o"></i></div>
+                    <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist"></i></div>
                 </div>
             </div>
         </div><!-- end card -->
