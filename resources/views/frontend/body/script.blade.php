@@ -124,3 +124,118 @@
     }
 </script>
 
+ {{-- /// Start Add To Cart  // --}}
+ <script type="text/javascript">
+    function addToCart(courseId, courseName, instructorId, slug){
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: {
+                _token: '{{ csrf_token() }}',
+                course_name: courseName,
+                slug: slug,
+                instructor: instructorId
+            },
+            url: "/cart/"+ courseId,
+            success: function(data) {
+                console.log(data)
+                miniCart();
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: data.success,
+                    })
+                }else{
+
+                Toast.fire({
+                    type: 'error',
+                    icon: 'error',
+                    title: data.error,
+                    })
+                }
+                // End Message
+            }
+        });
+    }
+ </script>
+
+ {{-- /// Start Mini Cart  // --}}
+ <script type="text/javascript">
+    function miniCart(){
+        $.ajax({
+            type: 'GET',
+            url: '/cart',
+            dataType: 'json',
+            success:function(response){
+                var miniCart = ""
+                $('span[id="cartSubTotal"]').text(response.cartTotal);
+                $('#cartQty').text(response.cartQty);
+                var miniCart = ""
+                $.each(response.carts, function(key,value){console.log(value)
+                    miniCart += `<li class="media media-card">
+                            <a href="/courses/${value.id}/${value.options.slug}" class="media-img">
+                                <img src="/${value.options.image}" alt="Cart image">
+                            </a>
+                            <div class="media-body">
+                                <h5><a href="/courses/${value.id}/${value.options.slug}"> ${value.name}</a></h5>
+
+                                <span class="d-block fs-14">$${value.price}</span>
+                                <a type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="la la-times"></i> </a>
+                            </div>
+                        </li>
+                        `
+                });
+                $('#miniCart').html(miniCart);
+            }
+        })
+    }
+    miniCart();
+
+    // Mini Cart Remove Start
+    function miniCartRemove(rowId){
+        $.ajax({
+            type: 'GET',
+            url: '/remove-cart/'+rowId,
+            dataType: 'json',
+            success:function(data){
+            miniCart();
+            // Start Message
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            })
+            if ($.isEmptyObject(data.error)) {
+
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: data.success,
+                    })
+            }else{
+
+        Toast.fire({
+                    type: 'error',
+                    icon: 'error',
+                    title: data.error,
+                    })
+                }
+            // End Message
+            }
+        })
+    }
+                // End Mini Cart Remove
+ </script>
+{{-- /// End Mini Cart // --}}
+
+
+

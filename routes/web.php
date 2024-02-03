@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\InstructorController;
@@ -96,6 +97,9 @@ Route::get('/category/{id}/{slug}', [IndexController::class, 'category']);
 Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'subcategory']);
 Route::get('/instructor/{id}', [IndexController::class, 'instructor'])->name('instructor.details');
 Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'store']);
+Route::post('/cart/{id}', [CartController::class, 'store']);
+Route::get('/cart', [CartController::class, 'index']);
+Route::get('/remove-cart/{rowId}', [CartController::class, 'destroy']);
 
 // Route::get('/auth/google', function () {
 //     return Socialite::driver('google')->redirect();
