@@ -100,6 +100,8 @@ Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'store']
 Route::post('/cart/{id}', [CartController::class, 'store']);
 Route::get('/cart', [CartController::class, 'index']);
 Route::get('/remove-cart/{rowId}', [CartController::class, 'destroy']);
+Route::get('/mycart', [CartController::class, 'MyCart'])->name('mycart');
+Route::get('/get-cart-course', [CartController::class, 'index']);
 
 // Route::get('/auth/google', function () {
 //     return Socialite::driver('google')->redirect();

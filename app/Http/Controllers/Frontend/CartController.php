@@ -66,6 +66,12 @@ class CartController extends Controller
         return response()->json(['success' => 'Successfully Added on Your Cart']);
     }
 
+    public function MyCart(){
+
+        return view('frontend.mycart.view_mycart');
+
+    }
+
     /**
      * Display the specified resource.
      */
