@@ -48,7 +48,7 @@
                                         <td> {{ $course['user']['name'] }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Label :</strong> </td>
+                                        <td><strong>Level :</strong> </td>
                                         <td> {{ $course->level }}</td>
                                     </tr>
                                     <tr>
