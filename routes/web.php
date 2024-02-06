@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
@@ -71,6 +72,12 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/admin/courses',[AdminController::class, 'all_courses'])->name('admin.course');
     Route::post('/update-course-status',[AdminController::class, 'update_course_status'])->name('update.course.status');
     Route::get('/admin-course-details/{id}',[AdminController::class, 'admin_course_details'])->name('admin.course.details');
+    Route::get('/admin-coupon',[CouponController::class, 'index'])->name('admin.all.coupon');
+    Route::get('/add-coupon',[CouponController::class, 'create'])->name('create.coupon');
+    Route::post('/add-coupon',[CouponController::class, 'store'])->name('store.coupon');
+    Route::get('edit-coupon/{id}',[CouponController::class, 'edit'])->name('edit.coupon');
+    Route::post('update-coupon',[CouponController::class, 'update'])->name('update.coupon');
+    Route::get('delete-coupon/{id}',[CouponController::class, 'destroy'])->name('delete.coupon');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
