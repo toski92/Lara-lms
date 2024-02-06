@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -85,5 +86,25 @@ class AdminController extends Controller
 
         return redirect('/login');
 
+    }
+    public function all_courses() {
+        $course = Course::all();
+        return view('admin.backend.courses.all_course',compact('course'));
+    }
+    public function update_course_status(Request $request) {
+        $courseId = $request->input('course_id');
+        $isChecked = $request->input('is_checked',0);
+
+        $course = Course::find($courseId);
+        if ($course) {
+            $course->status = $isChecked;
+            $course->save();
+        }
+
+        return response()->json(['message' => 'Course Status Updated Successfully']);
+    }
+    public function admin_course_details($id) {
+        $course = Course::find($id);
+        return view('admin.backend.courses.course_details',compact('course'));
     }
 }

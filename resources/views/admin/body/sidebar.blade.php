@@ -52,6 +52,19 @@
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
                 </div>
+                <div class="menu-title">Manage Courses</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('admin.course') }}"><i class='bx bx-radio-circle'></i>All Courses</a>
+                </li>
+
+
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
                 <div class="menu-title">Components</div>
             </a>
             <ul>
