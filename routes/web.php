@@ -118,6 +118,7 @@ Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
 Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
 Route::post('/payment', [CartController::class, 'Payment'])->name('payment');
+Route::post('/buy-course/{id}', [CartController::class, 'BuyToCart']);
 
 // Route::get('/auth/google', function () {
 //     return Socialite::driver('google')->redirect();

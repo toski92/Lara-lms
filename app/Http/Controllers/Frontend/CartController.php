@@ -271,4 +271,40 @@ class CartController extends Controller
             }
 
     }
+
+    public function BuyToCart(Request $request, $id){
+
+        $course = Course::find($id);
+
+        // Check if the course is already in the cart
+        $cartItem = Cart::search(function ($cartItem, $rowId) use ($id) {
+            return $cartItem->id === $id;
+        });
+
+        if ($cartItem->isNotEmpty()) {
+            return response()->json(['error' => 'Course is already in your cart']);
+        }
+
+        if ($course->discount_price == NULL) {
+
+            Cart::add($id,$request->course_name,1,$course->selling_price,1,[
+                    'image' => $course->feature_image,
+                    'slug' => $request->course_name_slug,
+                    'instructor' => $request->instructor,
+                ],
+            );
+
+        }else{
+
+            Cart::add($id,$request->course_name,1,$course->discount_price,1,[
+                    'image' => $course->feature_image,
+                    'slug' => $request->course_name_slug,
+                    'instructor' => $request->instructor,
+                ],
+            );
+        }
+
+        return response()->json(['success' => 'Successfully Added on Your Cart']);
+
+    }
 }
