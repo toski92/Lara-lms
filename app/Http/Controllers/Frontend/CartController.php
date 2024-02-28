@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Payment;
+use App\Models\Order;
 
 class CartController extends Controller
 {
@@ -185,6 +187,72 @@ class CartController extends Controller
             return redirect()->route('login')->with($notification);
 
         }
+
+    }
+    public function Payment(Request $request, Payment $payment, Order $order){
+
+        if ($request->session()->has('coupon')) {
+           $total_amount = session()->get('coupon')['total_amount'];
+        }else {
+            $total_amount = round(Cart::total());
+        }
+
+        // Cerate a new Payment Record
+
+        // $data = new Payment();
+        $payment->name = $request->name;
+        $payment->email = $request->email;
+        $payment->phone = $request->phone;
+        $payment->address = $request->address;
+        $payment->cash_delivery = $request->cash_delivery;
+        $payment->total_amount = $total_amount;
+        $payment->payment_type = 'Direct Payment';
+
+        $payment->invoice_no = 'EOS' . mt_rand(10000000, 99999999);
+        $payment->order_date = Carbon::now()->format('d F Y');
+        $payment->order_month = Carbon::now()->format('F');
+        $payment->order_year = Carbon::now()->format('Y');
+        $payment->status = 'pending';
+        $payment->created_at = Carbon::now();
+        $payment->save();
+
+        foreach ($request->course_title as $key => $course_title) {
+
+            $existingOrder = $order::where('user_id',Auth::user()->id)->where('course_id',$request->course_id[$key])->first();
+
+            if ($existingOrder) {
+
+                $notification = array(
+                    'message' => 'You Have already enrolled in this course',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            } // end if
+
+            // $order = new Order();
+            $order->payment_id = $payment->id;
+            $order->user_id = Auth::user()->id;
+            $order->course_id = $request->course_id[$key];
+            $order->instructor_id = $request->instructor_id[$key];
+            $order->course_title = $course_title;
+            $order->price = $request->price[$key];
+            $order->save();
+
+           } // end foreach
+
+           $request->session()->forget('cart');
+
+            if ($request->cash_delivery == 'stripe') {
+               echo "stripe";
+            }else{
+
+                $notification = array(
+                    'message' => 'Cash Payment Submit Successfully',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('index')->with($notification);
+
+            }
 
     }
 }
