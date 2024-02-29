@@ -191,7 +191,7 @@ class CartController extends Controller
         }
 
     }
-    public function Payment(Request $request, Payment $payment, Order $order){
+    public function Payment(Request $request){
 
         if ($request->session()->has('coupon')) {
            $total_amount = session()->get('coupon')['total_amount'];
@@ -201,7 +201,7 @@ class CartController extends Controller
 
         // Cerate a new Payment Record
 
-        // $data = new Payment();
+        $payment = new Payment();
         $payment->name = $request->name;
         $payment->email = $request->email;
         $payment->phone = $request->phone;
@@ -220,7 +220,7 @@ class CartController extends Controller
 
         foreach ($request->course_title as $key => $course_title) {
 
-            $existingOrder = $order::where('user_id',Auth::user()->id)->where('course_id',$request->course_id[$key])->first();
+            $existingOrder = Order::where('user_id',Auth::user()->id)->where('course_id',$request->course_id[$key])->first();
 
             if ($existingOrder) {
 
@@ -231,7 +231,7 @@ class CartController extends Controller
                 return redirect()->back()->with($notification);
             } // end if
 
-            // $order = new Order();
+            $order = new Order();
             $order->payment_id = $payment->id;
             $order->user_id = Auth::user()->id;
             $order->course_id = $request->course_id[$key];
@@ -240,35 +240,35 @@ class CartController extends Controller
             $order->price = $request->price[$key];
             $order->save();
 
-           } // end foreach
+        } // end foreach
 
-           $request->session()->forget('cart');
+        $request->session()->forget('cart');
 
-           $paymentId = $payment->id;
+        $paymentId = $payment->id;
 
-           /// Start Send email to student ///
-           $sendmail = Payment::find($paymentId);
-           $data = [
-                'invoice_no' => $sendmail->invoice_no,
-                'amount' => $total_amount,
-                'name' => $sendmail->name,
-                'email' => $sendmail->email,
-           ];
+        /// Start Send email to student ///
+        $sendmail = Payment::find($paymentId);
+        $data = [
+            'invoice_no' => $sendmail->invoice_no,
+            'amount' => $total_amount,
+            'name' => $sendmail->name,
+            'email' => $sendmail->email,
+        ];
 
-           Mail::to($request->email)->send(new Orderconfirm($data));
-           /// End Send email to student ///
+        Mail::to($request->email)->send(new Orderconfirm($data));
+        /// End Send email to student ///
 
-            if ($request->cash_delivery == 'stripe') {
-               echo "stripe";
-            }else{
+        if ($request->cash_delivery == 'stripe') {
+            echo "stripe";
+        }else{
 
-                $notification = array(
-                    'message' => 'Cash Payment Submit Successfully',
-                    'alert-type' => 'success'
-                );
-                return redirect()->route('index')->with($notification);
+            $notification = array(
+                'message' => 'Cash Payment Submit Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('index')->with($notification);
 
-            }
+        }
 
     }
 
