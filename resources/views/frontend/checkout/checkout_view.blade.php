@@ -96,11 +96,6 @@
                             <div class="divider"><span></span></div>
                             <div class="order-details-lists">
                                 @foreach ($carts as $item)
-                                <input type="hidden" name="sulg[]" value="{{ $item->options->slug }}">
-                                <input type="hidden" name="course_id[]" value="{{ $item->id }}">
-                                <input type="hidden" name="course_title[]" value="{{ $item->name }}">
-                                <input type="hidden" name="price[]" value="{{ $item->price }}">
-                                <input type="hidden" name="instructor_id[]" value="{{ $item->options->instructor }}">
                                 <div class="media media-card border-bottom border-bottom-gray pb-3 mb-3">
                                     <a href="{{ url('courses/'.$item->id.'/'.$item->options->slug) }}" class="media-img">
                                         <img src="{{ asset($item->options->image) }}" alt="Cart image">
@@ -109,6 +104,11 @@
                                         <h5 class="fs-15 pb-2"><a href="{{ url('course/details/'.$item->id.'/'.$item->options->slug) }}">{{ $item->name }} </a></h5>
                                         <p class="text-black font-weight-semi-bold lh-18">${{ $item->price }}  </p>
                                     </div>
+                                    <input type="hidden" name="slug[]" value="{{ $item->options->slug }}">
+                                    <input type="hidden" name="course_id[]" value="{{ $item->id }}">
+                                    <input type="hidden" name="course_title[]" value="{{ $item->name }}">
+                                    <input type="hidden" name="price[]" value="{{ $item->price }}">
+                                    <input type="hidden" name="instructor_id[]" value="{{ $item->options->instructor }}">
                                 </div><!-- end media -->
                                 @endforeach
                             </div><!-- end order-details-lists -->

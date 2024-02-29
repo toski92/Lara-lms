@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -78,6 +79,10 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('edit-coupon/{id}',[CouponController::class, 'edit'])->name('edit.coupon');
     Route::post('update-coupon',[CouponController::class, 'update'])->name('update.coupon');
     Route::get('delete-coupon/{id}',[CouponController::class, 'destroy'])->name('delete.coupon');
+    Route::get('pending-order',[OrderController::class, 'index'])->name('admin.pending.order');
+    Route::get('pending-order-detail/{id}',[OrderController::class, 'show'])->name('admin.order.details');
+    Route::get('/pending-confrim/{id}',[OrderController::class, 'PendingToConfirm'])->name('pending-confrim');
+    Route::get('/confirm-order',[OrderController::class, 'AdminConfirmOrder'])->name('admin.confirm.order');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
@@ -100,6 +105,8 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::post('/update-lecture',[CourseController::class, 'update_lecture'])->name('update.lecture');
     Route::get('/delete-lecture/{id}',[CourseController::class, 'delete_lecture'])->name('delete.lecture');
     Route::post('/delete-topic/{id}',[CourseController::class, 'delete_topic'])->name('delete.topic');
+    Route::get('/instructor-all-order',[OrderController::class, 'InstructorAllOrder'])->name('instructor.all.order');
+    Route::get('/instructor-order-details/{payment_id}',[OrderController::class, 'InstructorOrderDetails'])->name('instructor.order.details');
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
