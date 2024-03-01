@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishListController::class, 'index'])->name('user.wishlist');
     Route::get('/get-wishlist-course',[WishListController::class, 'show']);
     Route::get('/wishlist-remove/{id}',[WishListController::class, 'destroy']);
+    Route::get('/my-course',[OrderController::class, 'MyCourse'])->name('my.course');
 });
 // Admin group middleware
 Route::middleware(['auth','roles:admin'])->group(function () {
