@@ -105,8 +105,9 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::post('/update-lecture',[CourseController::class, 'update_lecture'])->name('update.lecture');
     Route::get('/delete-lecture/{id}',[CourseController::class, 'delete_lecture'])->name('delete.lecture');
     Route::post('/delete-topic/{id}',[CourseController::class, 'delete_topic'])->name('delete.topic');
-    Route::get('/instructor-all-order',[OrderController::class, 'InstructorAllOrder'])->name('instructor.all.order');
+    Route::get('/instructor-all-order',[OrderController::class, 'Instructo rAllOrder'])->name('instructor.all.order');
     Route::get('/instructor-order-details/{payment_id}',[OrderController::class, 'InstructorOrderDetails'])->name('instructor.order.details');
+    Route::get('/instructor-invoice/{payment_id}',[OrderController::class, 'InstructorOrderInvoice'])->name('instructor.order.invoice');
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
