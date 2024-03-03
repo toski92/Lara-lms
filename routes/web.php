@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/wishlist-remove/{id}',[WishListController::class, 'destroy']);
     Route::get('/my-course',[OrderController::class, 'MyCourse'])->name('my.course');
     Route::get('/course-view/{course_id}',[OrderController::class, 'CourseView'])->name('course.view');
+    Route::post('user-question',[QuestionController::class,'store'])->name('user.question');
 });
 // Admin group middleware
 Route::middleware(['auth','roles:admin'])->group(function () {
@@ -110,6 +112,10 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::get('/instructor-all-order',[OrderController::class, 'Instructo rAllOrder'])->name('instructor.all.order');
     Route::get('/instructor-order-details/{payment_id}',[OrderController::class, 'InstructorOrderDetails'])->name('instructor.order.details');
     Route::get('/instructor-invoice/{payment_id}',[OrderController::class, 'InstructorOrderInvoice'])->name('instructor.order.invoice');
+
+    Route::get('instructor-question',[QuestionController::class, 'index'])->name('instructor.all.question');
+    Route::get('question-details/{id}',[QuestionController::class, 'show'])->name('question.details');
+    Route::post('instructor-replay',[QuestionController::class, 'InstructorReplay'])->name('instructor.replay');
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');

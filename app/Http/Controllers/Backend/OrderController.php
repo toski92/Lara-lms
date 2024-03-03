@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Question;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -117,8 +118,9 @@ class OrderController extends Controller
 
         $course = Order::where('course_id',$course_id)->where('user_id',$id)->first();
         $topics = Topic::where('course_id',$course_id)->orderBy('id','asc')->get();
+        $questions = Question::latest()->get();
 
-        return view('frontend.mycourse.course_view',compact('course','topics'));
+        return view('frontend.mycourse.course_view',compact('course','topics','questions'));
     }
 
     /**
