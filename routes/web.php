@@ -122,7 +122,7 @@ Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 Route::get('/courses/{id}/{slug}', [IndexController::class, 'index']);
 Route::get('/category/{id}/{slug}', [IndexController::class, 'category']);
 Route::get('/subcategory/{id}/{slug}', [IndexController::class, 'subcategory']);
-Route::get('/instructor/{id}', [IndexController::class, 'instructor'])->name('instructor.details');
+Route::get('/instructor/{id}', [IndexController::class, 'instructor'])->name('instructor.details')->where('id', '[0-9]+');
 Route::post('/add-to-wishlist/{course_id}', [WishListController::class, 'store']);
 Route::post('/cart/{id}', [CartController::class, 'store']);
 Route::get('/cart', [CartController::class, 'index']);
