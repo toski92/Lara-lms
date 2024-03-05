@@ -143,6 +143,7 @@ Route::get('/remove-cart/{rowId}', [CartController::class, 'destroy']);
 Route::get('/mycart', [CartController::class, 'MyCart'])->name('mycart');
 Route::get('/get-cart-course', [CartController::class, 'index']);
 Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
+Route::post('/inscoupon-apply', [CartController::class, 'InsCouponApply']);
 Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
 Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
