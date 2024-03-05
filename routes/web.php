@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 // use App\Models\User;
 // use Illuminate\Support\Facades\Auth;
@@ -87,6 +88,11 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('pending-order-detail/{id}',[OrderController::class, 'show'])->name('admin.order.details');
     Route::get('/pending-confrim/{id}',[OrderController::class, 'PendingToConfirm'])->name('pending-confrim');
     Route::get('/confirm-order',[OrderController::class, 'AdminConfirmOrder'])->name('admin.confirm.order');
+
+    Route::get('report-view',[ReportController::class, 'index'])->name('report.view');
+    Route::post('search-by-date',[ReportController::class, 'SearchByDate'])->name('search.by.date');
+    Route::post('search-by-month',[ReportController::class, 'SearchByMonth'])->name('search.by.month');
+    Route::post('search-by-year',[ReportController::class, 'SearchByYear'])->name('search.by.year');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
