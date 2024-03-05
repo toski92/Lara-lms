@@ -122,6 +122,13 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::get('instructor-question',[QuestionController::class, 'index'])->name('instructor.all.question');
     Route::get('question-details/{id}',[QuestionController::class, 'show'])->name('question.details');
     Route::post('instructor-replay',[QuestionController::class, 'InstructorReplay'])->name('instructor.replay');
+    Route::get('instructor-all-coupon',[CouponController::class, 'InstructorAllCoupon'])->name('instructor.all.coupon');
+    Route::get('instructor-add-coupon',[CouponController::class, 'InstructorAddCoupon'])->name('instructor.add.coupon');
+    Route::post('instructor-store-coupon',[CouponController::class, 'InstructorStoreCoupon'])->name('instructor.store.coupon');
+
+    Route::get('instructor-edit-coupon/{id}',[CouponController::class, 'InstructorEditCoupon'])->name('instructor.edit.coupon');
+    Route::post('instructor-update-coupon',[CouponController::class, 'InstructorUpdateCoupon'])->name('instructor.update.coupon');
+    Route::get('instructor-delete-coupon/{id}',[CouponController::class, 'InstructorDeleteCoupon'])->name('instructor.delete.coupon');
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
