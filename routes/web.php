@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\QuestionController;
+use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -93,6 +94,10 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::post('search-by-date',[ReportController::class, 'SearchByDate'])->name('search.by.date');
     Route::post('search-by-month',[ReportController::class, 'SearchByMonth'])->name('search.by.month');
     Route::post('search-by-year',[ReportController::class, 'SearchByYear'])->name('search.by.year');
+
+    Route::get('admin-pending-review', [ReviewController::class, 'AdminPendingReview'])->name('admin.pending.review');
+    Route::post('update-review-status',[ReviewController::class, 'UpdateReviewStatus'])->name('update.review.status');
+    Route::get('admin-active-review',[ReviewController::class, 'AdminActiveReview'])->name('admin.active.review');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
@@ -129,6 +134,8 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::get('instructor-edit-coupon/{id}',[CouponController::class, 'InstructorEditCoupon'])->name('instructor.edit.coupon');
     Route::post('instructor-update-coupon',[CouponController::class, 'InstructorUpdateCoupon'])->name('instructor.update.coupon');
     Route::get('instructor-delete-coupon/{id}',[CouponController::class, 'InstructorDeleteCoupon'])->name('instructor.delete.coupon');
+
+    Route::get('instructor-all-review',[ReviewController::class, 'InstructorAllReview'])->name('instructor.all.review');
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
@@ -150,6 +157,7 @@ Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checko
 Route::post('/payment', [CartController::class, 'Payment'])->name('payment');
 Route::post('/buy-course/{id}', [CartController::class, 'BuyToCart']);
 Route::post('/stripe_order', [CartController::class, 'StripeOrder'])->name('stripe_order');
+Route::post('store-review', [ReviewController::class, 'store'])->name('store.review');
 
 // Route::get('/auth/google', function () {
 //     return Socialite::driver('google')->redirect();
