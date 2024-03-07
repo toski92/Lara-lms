@@ -30,6 +30,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -41,6 +42,14 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role }}</td>
+                            <td>
+                                @if ($user->UserOnline())
+                                <span class="badge badge-pill bg-success">Active Now</span>
+                                @else
+                                <span class="badge badge-pill bg-danger">{{ Carbon\Carbon::parse($user->last_seen)->diffForHumans() }} </span>
+
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('edit.user',$user->id) }}" class="btn btn-info">Edit</a>
                                 <a href="{{ route('delete.user',$user->id) }}" id="delete" class="btn btn-danger">Delete</a>
