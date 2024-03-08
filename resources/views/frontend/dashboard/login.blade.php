@@ -43,7 +43,7 @@
         <form method="POST" class="pt-4" action="{{ route('login') }}">
             @csrf
             <div class="d-flex flex-wrap align-items-center pb-4">
-                <button class="btn theme-btn flex-grow-1 mx-2 mb-2"><i class="la la-google mr-2"></i>Google</button>
+                {{-- <a href="{{ url('/auth/google') }}" class="btn theme-btn flex-grow-1 mx-2 mb-2"><i class="la la-google mr-2"></i>Google</a> --}}
                 <button class="btn theme-btn flex-grow-1 mx-2 mb-2"><i class="la la-facebook mr-2"></i>Facebook</button>
                 <button class="btn theme-btn flex-grow-1 mx-2 mb-2"><i class="la la-twitter mr-2"></i>Twitter</button>
             </div>

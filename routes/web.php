@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
@@ -98,6 +99,18 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('admin-pending-review', [ReviewController::class, 'AdminPendingReview'])->name('admin.pending.review');
     Route::post('update-review-status',[ReviewController::class, 'UpdateReviewStatus'])->name('update.review.status');
     Route::get('admin-active-review',[ReviewController::class, 'AdminActiveReview'])->name('admin.active.review');
+
+    Route::get('blog-category',[BlogController::class, 'index'])->name('blog.category');
+    Route::post('blog-category-store',[BlogController::class, 'store'])->name('blog.category.store');
+    Route::get('edit-blog-category/{id}',[BlogController::class, 'create']);
+    Route::post('blog-category-update',[BlogController::class, 'update'])->name('blog.category.update');
+    Route::get('delete-blog-category/{id}',[BlogController::class, 'destroy'])->name('delete.blog.category');
+    Route::get('blog-post',[BlogController::class, 'BlogPost'])->name('blog.post');
+    Route::get('add-blog-post',[BlogController::class, 'AddBlogPost'])->name('add.blog.post');
+    Route::post('store-blog-post',[BlogController::class, 'StoreBlogPost'])->name('store.blog.post');
+    Route::get('/edit/post/{id}',[BlogController::class, 'EditBlogPost'])->name('edit.post');
+    Route::post('/update/blog/post',[BlogController::class, 'UpdateBlogPost'])->name('update.blog.post');
+    Route::get('/delete/post/{id}',[BlogController::class, 'DeleteBlogPost'])->name('delete.post');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
@@ -120,7 +133,7 @@ Route::middleware(['auth','roles:instructor'])->group(function () {
     Route::post('/update-lecture',[CourseController::class, 'update_lecture'])->name('update.lecture');
     Route::get('/delete-lecture/{id}',[CourseController::class, 'delete_lecture'])->name('delete.lecture');
     Route::post('/delete-topic/{id}',[CourseController::class, 'delete_topic'])->name('delete.topic');
-    Route::get('/instructor-all-order',[OrderController::class, 'Instructo rAllOrder'])->name('instructor.all.order');
+    Route::get('/instructor-all-order',[OrderController::class, 'InstructorAllOrder'])->name('instructor.all.order');
     Route::get('/instructor-order-details/{payment_id}',[OrderController::class, 'InstructorOrderDetails'])->name('instructor.order.details');
     Route::get('/instructor-invoice/{payment_id}',[OrderController::class, 'InstructorOrderInvoice'])->name('instructor.order.invoice');
 
@@ -158,6 +171,9 @@ Route::post('/payment', [CartController::class, 'Payment'])->name('payment');
 Route::post('/buy-course/{id}', [CartController::class, 'BuyToCart']);
 Route::post('/stripe_order', [CartController::class, 'StripeOrder'])->name('stripe_order');
 Route::post('store-review', [ReviewController::class, 'store'])->name('store.review');
+Route::get('blog-details/{slug}', [BlogController::class, 'BlogDetails']);
+Route::get('blog-cat-list/{id}', [BlogController::class, 'BlogCatList']);
+Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog');
 
 // Route::get('/auth/google', function () {
 //     return Socialite::driver('google')->redirect();
