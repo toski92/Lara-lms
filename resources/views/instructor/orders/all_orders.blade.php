@@ -40,6 +40,7 @@
 
                         @foreach ($orderItem as $key=> $item)
                         <tr>
+                            @if(isset($item['payment']))
                             <td>{{ $key+1 }}</td>
                             <td> {{ $item['payment']['order_date'] }} </td>
                             <td>{{ $item['payment']['invoice_no'] }}</td>
@@ -50,6 +51,7 @@
                                 <a href="{{ route('instructor.order.details',$item->payment->id) }}" class="btn btn-info" title="Edit"><i class="lni lni-eye"></i> </a>
                                 <a href="{{ route('instructor.order.invoice',$item->payment->id) }}" class="btn btn-danger" title="Invoice"><i class="lni lni-download"></i> </a>
                             </td>
+                            @endif
                         </tr>
                         @endforeach
 
