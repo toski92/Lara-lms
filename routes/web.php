@@ -174,6 +174,7 @@ Route::post('store-review', [ReviewController::class, 'store'])->name('store.rev
 Route::get('blog-details/{slug}', [BlogController::class, 'BlogDetails']);
 Route::get('blog-cat-list/{id}', [BlogController::class, 'BlogCatList']);
 Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog');
+Route::post('/mark-notification-as-read/{notification}', [CartController::class, 'MarkAsRead']);
 
 // Route::get('/auth/google', function () {
 //     return Socialite::driver('google')->redirect();
