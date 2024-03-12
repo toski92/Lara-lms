@@ -119,6 +119,9 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('edit-permission/{id}',[RoleController::class, 'edit'])->name('edit.permission');
     Route::post('update-permission',[RoleController::class, 'update'])->name('update.permission');
     Route::get('delete-permission/{id}',[RoleController::class, 'destroy'])->name('delete.permission');
+    Route::get('import-permission',[RoleController::class, 'ImportPermission'])->name('import.permission');
+    Route::get('export',[RoleController::class, 'Export'])->name('export');
+    Route::post('import',[RoleController::class, 'Import'])->name('import');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
