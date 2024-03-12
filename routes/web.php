@@ -15,6 +15,7 @@ use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 // use App\Models\User;
 // use Illuminate\Support\Facades\Auth;
@@ -111,6 +112,13 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/edit/post/{id}',[BlogController::class, 'EditBlogPost'])->name('edit.post');
     Route::post('/update/blog/post',[BlogController::class, 'UpdateBlogPost'])->name('update.blog.post');
     Route::get('/delete/post/{id}',[BlogController::class, 'DeleteBlogPost'])->name('delete.post');
+
+    Route::get('all-permission',[RoleController::class, 'index'])->name('all.permission');
+    Route::get('add-permission',[RoleController::class, 'create'])->name('add.permission');
+    Route::post('store-permission',[RoleController::class, 'store'])->name('store.permission');
+    Route::get('edit-permission/{id}',[RoleController::class, 'edit'])->name('edit.permission');
+    Route::post('update-permission',[RoleController::class, 'update'])->name('update.permission');
+    Route::get('delete-permission/{id}',[RoleController::class, 'destroy'])->name('delete.permission');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
