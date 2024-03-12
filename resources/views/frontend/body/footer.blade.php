@@ -3,12 +3,12 @@
         <div class="row">
             <div class="col-lg-3 responsive-column-half">
                 <div class="footer-item">
-                    <a href="index.html">
-                        <img src="{{ asset('frontend/images/logo.png') }}" alt="footer logo" class="footer__logo">
+                    <a href="{{ route('index') }}">
+                        {{ env('APP_NAME') }}
                     </a>
                     <ul class="generic-list-item pt-4">
                         <li><a href="tel:+1631237884">+163 123 7884</a></li>
-                        <li><a href="mailto:support@wbsite.com">support@website.com</a></li>
+                        <li><a href="mailto:{{ env('MAIL_FROM_ADDRESS') }}">{{ env('MAIL_FROM_ADDRESS') }}</a></li>
                         <li>Melbourne, Australia, 105 South Park Avenue</li>
                     </ul>
                     <h3 class="fs-20 font-weight-semi-bold pt-4 pb-2">We are on</h3>
@@ -24,13 +24,23 @@
                 <div class="footer-item">
                     <h3 class="fs-20 font-weight-semi-bold">Company</h3>
                     <span class="section-divider section--divider"></span>
-                    <ul class="generic-list-item">
+                    {{-- <ul class="generic-list-item">
                         <li><a href="#">About us</a></li>
                         <li><a href="#">Contact us</a></li>
                         <li><a href="{{ route('register.teacher') }}">Become a Teacher</a></li>
                         <li><a href="#">Support</a></li>
                         <li><a href="#">FAQs</a></li>
                         <li><a href="#">Blog</a></li>
+                    </ul> --}}
+                    <ul class="generic-list-item">
+                        @foreach (\Illuminate\Support\Facades\Route::getRoutes() as $route)
+                            @php
+                                $uri = $route->uri();
+                            @endphp
+                            @if (in_array($uri, ['about-us', 'contact-us', 'become-a-teacher', 'support', 'faqs', 'blog']))
+                                <li><a style="text-transform: capitalize;" href="{{ $uri }}">{{ str_replace(['-', '.'],' ',$route->getName()) }}</a></li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div><!-- end footer-item -->
             </div><!-- end col-lg-3 -->
@@ -38,13 +48,16 @@
                 <div class="footer-item">
                     <h3 class="fs-20 font-weight-semi-bold">Courses</h3>
                     <span class="section-divider section--divider"></span>
+                    @php
+                        $courses = App\Models\Course::latest()->take(5)->get();
+                    @endphp
                     <ul class="generic-list-item">
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">Hacking</a></li>
-                        <li><a href="#">PHP Learning</a></li>
-                        <li><a href="#">Spoken English</a></li>
-                        <li><a href="#">Self-Driving Car</a></li>
-                        <li><a href="#">Garbage Collectors</a></li>
+
+                        @foreach ($courses as $course)
+                        <li>
+                            <a href="{{ url('courses/'.$course->id.'/'.$course->slug) }}">{{ $course->course_name }}</a>
+                        </li>
+                        @endforeach
                     </ul>
                 </div><!-- end footer-item -->
             </div><!-- end col-lg-3 -->

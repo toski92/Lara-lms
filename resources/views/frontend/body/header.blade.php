@@ -55,7 +55,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-2">
                         <div class="logo-box">
-                            <a href="{{ route('index') }}" class="logo"><img src="{{ asset('frontend/images/logo.png') }}" alt="logo"></a>
+                            <a href="{{ route('index') }}" class="logo">{{ env('APP_NAME') }}</a>
                             <div class="user-btn-action">
                                 <div class="search-menu-toggle icon-element icon-element-sm shadow-sm mr-2" data-toggle="tooltip" data-placement="top" title="Search">
                                     <i class="la la-search"></i>

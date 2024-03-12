@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile', [ProfileController::class, 'update_password'])->name('profile.password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/register-teacher', [UserController::class, 'register_teacher'])->name('register.teacher');
+    Route::get('/become-a-teacher', [UserController::class, 'register_teacher'])->name('become-a-teacher');
     Route::get('/wishlist', [WishListController::class, 'index'])->name('user.wishlist');
     Route::get('/get-wishlist-course',[WishListController::class, 'show']);
     Route::get('/wishlist-remove/{id}',[WishListController::class, 'destroy']);
