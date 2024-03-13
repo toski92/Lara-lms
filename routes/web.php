@@ -128,6 +128,12 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('edit-roles/{id}',[RoleController::class, 'EditRoles'])->name('edit.roles');
     Route::post('update-roles',[RoleController::class, 'UpdateRoles'])->name('update.roles');
     Route::get('delete-roles/{id}',[RoleController::class, 'DeleteRoles'])->name('delete.roles');
+    Route::get('add-roles-permission',[RoleController::class, 'AddRolesPermission'])->name('add.roles.permission');
+    Route::post('role-permission-store',[RoleController::class, 'RolePermissionStore'])->name('role.permission.store');
+    Route::get('all-roles-permission',[RoleController::class, 'AllRolesPermission'])->name('all.roles.permission');
+    Route::get('admin-edit-roles/{id}',[RoleController::class, 'AdminEditRoles'])->name('admin.edit.roles');
+    Route::post('admin-roles-update/{id}',[RoleController::class, 'AdminUpdateRoles'])->name('admin.roles.update');
+    Route::get('admin-delete-roles/{id}',[RoleController::class, 'AdminDeleteRoles'])->name('admin.delete.roles');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
