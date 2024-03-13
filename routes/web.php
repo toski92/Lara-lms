@@ -122,6 +122,12 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('import-permission',[RoleController::class, 'ImportPermission'])->name('import.permission');
     Route::get('export',[RoleController::class, 'Export'])->name('export');
     Route::post('import',[RoleController::class, 'Import'])->name('import');
+    Route::get('all-roles',[RoleController::class, 'AllRoles'])->name('all.roles');
+    Route::get('add-roles',[RoleController::class, 'AddRoles'])->name('add.roles');
+    Route::post('store-roles',[RoleController::class, 'StoreRoles'])->name('store.roles');
+    Route::get('edit-roles/{id}',[RoleController::class, 'EditRoles'])->name('edit.roles');
+    Route::post('update-roles',[RoleController::class, 'UpdateRoles'])->name('update.roles');
+    Route::get('delete-roles/{id}',[RoleController::class, 'DeleteRoles'])->name('delete.roles');
 });
 // Instructor group middleware
 Route::middleware(['auth','roles:instructor'])->group(function () {
