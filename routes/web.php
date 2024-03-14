@@ -81,6 +81,14 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/admin/courses',[AdminController::class, 'all_courses'])->name('admin.course');
     Route::post('/update-course-status',[AdminController::class, 'update_course_status'])->name('update.course.status');
     Route::get('/admin-course-details/{id}',[AdminController::class, 'admin_course_details'])->name('admin.course.details');
+
+    Route::get('all-admin',[AdminController::class, 'AllAdmin'])->name('all.admin');
+    Route::get('add-admin',[AdminController::class, 'AddAdmin'])->name('add.admin');
+    Route::post('store-admin',[AdminController::class, 'StoreAdmin'])->name('store.admin');
+    Route::get('edit-admin/{id}',[AdminController::class, 'EditAdmin'])->name('edit.admin');
+    Route::post('update-admin/{id}',[AdminController::class, 'UpdateAdmin'])->name('update.admin');
+    Route::get('delete-admin/{id}',[AdminController::class, 'DeleteAdmin'])->name('delete.admin');
+
     Route::get('/admin-coupon',[CouponController::class, 'index'])->name('admin.all.coupon');
     Route::get('/add-coupon',[CouponController::class, 'create'])->name('create.coupon');
     Route::post('/add-coupon',[CouponController::class, 'store'])->name('store.coupon');
