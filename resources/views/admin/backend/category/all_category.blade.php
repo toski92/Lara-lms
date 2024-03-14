@@ -38,8 +38,12 @@
                             <td><img src="{{ asset($category->image) }}" alt="{{ $category->name }}" style="width: 70px; height:30px"></td>
                             <td>{{ $category->category_name }}</td>
                             <td>
+                                @if (Auth::user()->can('category.edit'))
                                 <a href="{{ route('edit.category',$category->id) }}" class="btn btn-info">Edit</a>
+                                @endif
+                                @if (Auth::user()->can('category.delete'))
                                 <a href="{{ route('delete.category',$category->id) }}" id="delete" class="btn btn-danger">Delete</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
