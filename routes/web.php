@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
 // Admin group middleware
 Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard');
-    Route::get('/categories', [CategoryController::class, 'index'])->name('all.category');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('all.category')->middleware('permission:category.all');
     Route::get('/add-category', [CategoryController::class, 'create'])->name('add.category');
     Route::post('/add-category', [CategoryController::class, 'store'])->name('store.category');
     Route::get('/edit-category/{id}', [CategoryController::class, 'edit'])->name('edit.category');
@@ -71,7 +71,7 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/delete-user/{id}', [AdminController::class, 'destroy'])->name('delete.user');
 
 
-    Route::get('/subcategories', [SubCategoryController::class, 'index'])->name('all.subcategory');
+    Route::get('/subcategories', [SubCategoryController::class, 'index'])->name('all.subcategory')->middleware('permission:subcategory.all');
     Route::get('/add-subcategory', [SubCategoryController::class, 'create'])->name('add.subcategory');
     Route::post('/add-subcategory', [SubCategoryController::class, 'store'])->name('store.subcategory');
     Route::get('/edit-subcategory/{id}', [SubCategoryController::class, 'edit'])->name('edit.subcategory');
