@@ -208,9 +208,9 @@
                 </div>
                 <ul class="generic-list-item generic-list-item-bullet generic-list-item--bullet d-flex align-items-center fs-14">
                     <li>{{ $item->duration }} total hours</li>
-                    <li>{{ $item->label }}</li>
+                    <li>{{ $item->level }}</li>
                 </ul>
-                <p class="card-text pt-1 fs-14 lh-22">{{ $item->prerequisites }}</p>
+                <p class="card-text pt-1 fs-14 lh-22">{{ $item->excerpt }}</p>
 
                 @php
                 $metas = App\Models\CourseMeta::where('course_id',$item->id)->orderBy('id','DESC')->get();
