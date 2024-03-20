@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ChatController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\OrderController;
@@ -54,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-course',[OrderController::class, 'MyCourse'])->name('my.course');
     Route::get('/course-view/{course_id}',[OrderController::class, 'CourseView'])->name('course.view');
     Route::post('user-question',[QuestionController::class,'store'])->name('user.question');
+    Route::get('live-chat', [UserController::class, 'LiveChat'])->name('live.chat');
 });
 // Admin group middleware
 Route::middleware(['auth','roles:admin'])->group(function () {
@@ -206,6 +208,9 @@ Route::get('blog-details/{slug}', [BlogController::class, 'BlogDetails']);
 Route::get('blog-cat-list/{id}', [BlogController::class, 'BlogCatList']);
 Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog');
 Route::post('/mark-notification-as-read/{notification}', [CartController::class, 'MarkAsRead']);
+Route::post('/send-message', [ChatController::class, 'store']);
+Route::get('/user-all', [ChatController::class, 'index']);
+Route::get('/user-message/{id}', [ChatController::class, 'UserMsgById']);
 
 // Route::get('/auth/google', function () {
 //     return Socialite::driver('google')->redirect();
