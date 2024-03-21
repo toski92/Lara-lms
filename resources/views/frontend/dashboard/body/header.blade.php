@@ -225,9 +225,16 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{ route('logout') }}">
+                                                                <form method="POST" action="{{ route('logout') }}">
+                                                                    @csrf
+
+                                                                    <button type="submit" class="dropdown-item d-flex align-items-center">
+                                                                        <i class="la la-power-off mr-1"></i><span>{{ __('Logout') }}</span>
+                                                                    </button>
+                                                                </form>
+                                                                {{-- <a href="{{ route('logout') }}">
                                                                     <i class="la la-power-off mr-1"></i> Logout
-                                                                </a>
+                                                                </a> --}}
                                                             </li>
                                                             <li><div class="section-block"></div></li>
                                                             <li>
