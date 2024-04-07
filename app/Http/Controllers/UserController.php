@@ -16,6 +16,10 @@ class UserController extends Controller
     {
         return view('frontend.index');
     }
+    public function LiveChat(){
+        return view('frontend.dashboard.live_chat');
+    }
+
     public function register_teacher()
     {
         $user = Auth::user();//dd($user);

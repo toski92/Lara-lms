@@ -37,7 +37,7 @@
             <div class="col-lg-8 mb-5">
                 <div class="card card-item">
                     <div class="card-body">
-                        <p class="card-text pb-3"> {!! $blog->long_descp !!} </p>
+                        <p class="card-text pb-3"> {!! $blog->long_desc !!} </p>
 
 
 
