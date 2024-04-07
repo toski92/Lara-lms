@@ -70,7 +70,7 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::get('/users', [AdminController::class, 'user'])->name('all.users');
     Route::get('/edit-user/{id}', [AdminController::class, 'edit'])->name('edit.user');
     Route::post('/update-user', [AdminController::class, 'update'])->name('update.user');
-    Route::get('/delete-user/{id}', [AdminController::class, 'destroy'])->name('delete.user');
+    // Route::get('/delete-user/{id}', [AdminController::class, 'destroy'])->name('delete.user');
 
 
     Route::get('/subcategories', [SubCategoryController::class, 'index'])->name('all.subcategory')->middleware('permission:subcategory.all');
@@ -211,6 +211,8 @@ Route::post('/mark-notification-as-read/{notification}', [CartController::class,
 Route::post('/send-message', [ChatController::class, 'store']);
 Route::get('/user-all', [ChatController::class, 'index']);
 Route::get('/user-message/{id}', [ChatController::class, 'UserMsgById']);
+Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
+Route::post('/contact', [IndexController::class, 'store'])->name('store.contact');
 
 // Route::get('/auth/google', function () {
 //     return Socialite::driver('google')->redirect();

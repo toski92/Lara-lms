@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Course;
+use App\Models\Category;
 use App\Models\CourseMeta;
 use App\Models\SubCategory;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Jobs\SendContactFormEmail;
+use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
 {
@@ -49,6 +50,10 @@ class IndexController extends Controller
         return view('frontend.instructor.instructor_details',compact('instructor','courses'));
     }
 
+    public function contact(){
+        return view('frontend.contact');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -62,7 +67,19 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'email'=>['required','email'],
+            'message'=>'required',
+        ]);
+
+        // Dispatch the job to send email
+        SendContactFormEmail::dispatch()->onQueue('emails')->delay(5);
+        $notification = array(
+            'message' => 'Your message has been sent!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 
     /**
