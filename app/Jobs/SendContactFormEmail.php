@@ -28,7 +28,6 @@ class SendContactFormEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        $email = new ContactFormSubmitted();
-        Mail::to(env('MAIL_FROM_ADDRESS'))->send($email);
+
     }
 }
