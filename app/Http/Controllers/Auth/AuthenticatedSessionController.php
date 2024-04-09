@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserSubscribed;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
@@ -26,6 +27,14 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+        if ($request->has('newsletter') && auth()->check()) {
+            $validate=$request->validate([
+                'email'=>'unique:newsletter,email'
+            ]);
+            if ($validate) {
+                event(new UserSubscribed($request->email));
+            }
+        }
 
         $request->session()->regenerate();
         $notification = array(
