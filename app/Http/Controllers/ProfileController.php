@@ -56,7 +56,7 @@ class ProfileController extends Controller
             'alert-type' => 'success'
         ];
 
-        return redirect()->back()->with($notification);
+        return redirect('/profile')->with($notification);
     }
 
     public function update_password(Request $request) {
